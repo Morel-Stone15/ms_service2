@@ -62,8 +62,10 @@ def index():
 
 @app.route('/<path:path>')
 def static_files(path):
-    if os.path.exists(path):
-        return send_from_directory('.', path)
+    base_dir = os.path.abspath(os.path.dirname(__file__))
+    file_path = os.path.join(base_dir, path)
+    if os.path.exists(file_path) and os.path.isfile(file_path):
+        return send_from_directory(base_dir, path)
     return "Not Found", 404
 
 # ── Register ──────────────────────────────────────────────
