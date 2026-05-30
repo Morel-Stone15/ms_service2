@@ -1,0 +1,24 @@
+{
+  "name": "MS SERVICE",
+  "short_name": "MS Service",
+  "description": "Intermédiaire sécurisé pour vos paiements internationaux et abonnements numériques au Gabon.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#040712",
+  "theme_color": "#040712",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
