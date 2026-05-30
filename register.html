@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription – MS SERVICE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="bg-glow-container">
+        <div class="bg-glow glow-1"></div>
+        <div class="bg-glow glow-2"></div>
+        <div class="bg-glow glow-3"></div>
+    </div>
+
+    <div class="auth-layout">
+        <div class="auth-card">
+            <div style="text-align:center; margin-bottom: 24px;">
+                <a href="index.html" class="logo" style="justify-content:center; display:inline-flex;">
+                    <span class="logo-icon" style="width:36px;height:36px;">
+                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <polygon points="50,10 90,30 90,70 50,90 10,70 10,30" stroke="url(#lg2)" stroke-width="8" fill="none"/>
+                            <path d="M30 45 L50 65 L70 45" stroke="url(#lg2)" stroke-width="8" stroke-linecap="round" fill="none"/>
+                            <defs><linearGradient id="lg2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00f0ff"/><stop offset="100%" stop-color="#ab20fd"/></linearGradient></defs>
+                        </svg>
+                    </span>
+                    <span class="logo-text">MS <span class="accent-text">SERVICE</span></span>
+                </a>
+            </div>
+
+            <h1 style="font-size:1.6rem; margin-bottom:6px;">Créer un compte</h1>
+            <p style="color:var(--text-soft); margin-bottom:24px; font-size:0.9rem;">Rejoignez MS SERVICE et simplifiez vos paiements</p>
+
+            <p id="msg" class="form-message"></p>
+
+            <form id="registerForm" class="contact-form">
+                <div class="form-group">
+                    <div class="input-wrap">
+                        <i data-lucide="user" class="input-icon"></i>
+                        <input type="text" name="nom" placeholder="Nom complet" required autocomplete="name"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-wrap">
+                        <i data-lucide="mail" class="input-icon"></i>
+                        <input type="email" name="email" placeholder="Adresse e-mail" required autocomplete="email"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-wrap">
+                        <i data-lucide="phone" class="input-icon"></i>
+                        <input type="tel" name="telephone" placeholder="Numéro WhatsApp (ex: +241...)" autocomplete="tel"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-wrap">
+                        <i data-lucide="lock" class="input-icon"></i>
+                        <input type="password" name="password" placeholder="Mot de passe (min. 6 caractères)" required autocomplete="new-password" minlength="6"/>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-glow btn-block" id="submitBtn">
+                    <span>Créer mon compte</span>
+                    <i data-lucide="user-plus"></i>
+                </button>
+            </form>
+
+            <div style="text-align:center; margin-top:20px; border-top:1px solid var(--border); padding-top:20px;">
+                <p style="color:var(--text-soft); font-size:0.9rem;">
+                    Déjà un compte ?
+                    <a href="login.html" style="color:var(--primary); font-weight:600;"> Se connecter</a>
+                </p>
+                <p style="margin-top:10px;">
+                    <a href="index.html" style="color:var(--text-muted); font-size:0.85rem;">← Retour à l'accueil</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>lucide.createIcons();</script>
+    <script src="auth.js"></script>
+    <script>
+        if (Auth.isLoggedIn()) window.location.href = 'index.html';
+
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const msg = document.getElementById('msg');
+            const btn = document.getElementById('submitBtn');
+            msg.textContent = ''; msg.className = 'form-message';
+            btn.disabled = true;
+            btn.innerHTML = '<span>⏳ Création...</span>';
+
+            const result = await Auth.register({
+                nom:       e.target.nom.value.trim(),
+                email:     e.target.email.value.trim(),
+                telephone: e.target.telephone.value.trim(),
+                password:  e.target.password.value
+            });
+
+            if (result.success) {
+                msg.textContent = 'Compte créé avec succès ! Redirection...';
+                msg.className = 'form-message success';
+                setTimeout(() => { window.location.href = 'index.html'; }, 600);
+            } else {
+                msg.textContent = result.message || "Erreur lors de l'inscription.";
+                msg.className = 'form-message error';
+                btn.disabled = false;
+                btn.innerHTML = '<span>Créer mon compte</span><i data-lucide="user-plus"></i>';
+                lucide.createIcons();
+            }
+        });
+    </script>
+</body>
+</html>

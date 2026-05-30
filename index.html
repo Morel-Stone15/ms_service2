@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="MS SERVICE | Intermédiaire sécurisé au Gabon pour vos paiements internationaux et abonnements numériques. Netflix, ChatGPT, Canva Pro, Amazon, App Store avec Airtel Money, UBA Gabon et Carte Verso.">
+    <title>MS SERVICE | Paiements Internationaux & Abonnements au Gabon</title>
+
+    <!-- Google Fonts: Space Grotesk & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</head>
+
+<body>
+
+    <!-- GRID OVERLAY -->
+    <div class="grid-overlay"></div>
+
+    <!-- SCROLL PROGRESS -->
+    <div class="scroll-progress" id="scroll-progress"></div>
+
+    <!-- TOAST CONTAINER -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- CUSTOM CURSOR -->
+    <div class="custom-cursor" id="custom-cursor"></div>
+    <div class="custom-cursor-dot" id="custom-cursor-dot"></div>
+
+    <!-- PRELOADER -->
+    <div class="preloader" id="preloader">
+        <div class="loader-content">
+            <div class="logo-spinner">
+                <div class="spinner-ring ring-1"></div>
+                <div class="spinner-ring ring-2"></div>
+                <span class="loader-text">MS</span>
+            </div>
+            <div class="loader-progress-bar">
+                <div class="loader-progress"></div>
+            </div>
+            <span class="loader-status">Connexion au terminal sécurisé...</span>
+        </div>
+    </div>
+
+    <!-- DYNAMIC BACKGROUND -->
+    <div class="bg-glow-container">
+        <div class="bg-glow glow-1"></div>
+        <div class="bg-glow glow-2"></div>
+        <div class="bg-glow glow-3"></div>
+    </div>
+    <canvas id="particles"></canvas>
+
+    <!-- HEADER / NAVBAR -->
+    <header class="navbar" id="navbar">
+        <div class="container navbar-container">
+            <a href="#accueil" class="logo" id="logo-link">
+                <span class="logo-icon">
+                    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <polygon points="50,10 90,30 90,70 50,90 10,70 10,30" stroke="url(#logo-grad)" stroke-width="8"
+                            fill="none" />
+                        <path d="M30 45 L50 65 L70 45" stroke="url(#logo-grad)" stroke-width="8" stroke-linecap="round"
+                            fill="none" />
+                        <defs>
+                            <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#00f0ff" />
+                                <stop offset="100%" stop-color="#ab20fd" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </span>
+                <span class="logo-text">MS <span class="accent-text">SERVICE</span></span>
+            </a>
+
+            <nav class="nav-menu" id="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="#accueil" class="nav-link active">Accueil</a></li>
+                    <li><a href="#comment-ca-marche" class="nav-link">Méthode</a></li>
+                    <li><a href="#services" class="nav-link">Services</a></li>
+                    <li><a href="#paiements" class="nav-link">Paiements</a></li>
+                    <li><a href="#tarifs" class="nav-link">Tarifs</a></li>
+                    <li><a href="#faq" class="nav-link">FAQ</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="navbar-actions">
+                <button class="cart-btn" id="cart-toggle" aria-label="Afficher le panier">
+                    <i data-lucide="shopping-cart"></i>
+                    <span class="cart-badge" id="cart-badge">0</span>
+                </button>
+                <a href="#services" class="btn btn-nav btn-outline">Passer Commande</a>
+                <button class="mobile-toggle" id="mobile-toggle" aria-label="Menu de navigation">
+                    <span class="hamburger-bar"></span>
+                    <span class="hamburger-bar"></span>
+                    <span class="hamburger-bar"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="accueil">
+        <div class="container hero-container grid grid-2">
+            <div class="hero-info scroll-reveal">
+                <div class="hero-badge">
+                    <span class="badge-icon">🇬🇦</span>
+                    <span class="badge-text">Passerelle de Paiement national et international</span>
+                    <span class="live-indicator"><span class="live-dot"></span> En ligne</span>
+                </div>
+                <h1 class="hero-title">
+                    Vos paiements nationaux et internationaux <span class="gradient-text">simplifiés au Gabon.</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Nous effectuons vos paiements et abonnements numériques via nos cartes <span class="typing-text"
+                        id="typing-text"></span><span class="typing-cursor">|</span> de façon sécurisée. Réglez
+                    localement en toute simplicité.
+                </p>
+                <div class="hero-actions">
+                    <a href="#services" class="btn btn-primary btn-glow">Faire un paiement</a>
+                    <a href="https://wa.me/241074083695?text=Bonjour%20MS%20Service,%20je%20souhaite%20effectuer%20un%20paiement%20international."
+                        target="_blank" class="btn btn-secondary">
+                        <i data-lucide="phone"></i> WhatsApp Direct
+                    </a>
+                </div>
+
+                <!-- Payment Partners Badges -->
+                <div class="payment-partners">
+                    <p class="partners-title">Moyens de paiement acceptés localement :</p>
+                    <div class="partners-flex">
+                        <div class="partner-badge" title="Airtel Money Gabon">
+                            <span class="partner-dot status-green"></span>
+                            <span class="partner-name">Airtel Money</span>
+                        </div>
+                        <div class="partner-badge" title="Moov Money Gabon">
+                            <span class="partner-dot status-green"></span>
+                            <span class="partner-name">Moov Money</span>
+                        </div>
+                        <div class="partner-badge" title="Dépôt Bancaire / Cash">
+                            <span class="partner-dot status-blue"></span>
+                            <span class="partner-name">Dépôt & Cash</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-visual scroll-reveal">
+                <!-- 3D CARD WRAPPER -->
+                <div class="card-and-dashboard-wrapper">
+
+                    <!-- 3D BANK CARD -->
+                    <div class="virtual-card-container">
+                        <div class="virtual-card" id="virtual-card">
+                            <div class="card-front">
+                                <div class="card-bg-glow"></div>
+                                <div class="card-header-flex">
+                                    <span class="card-brand">MS SERVICE</span>
+                                    <span class="card-nfc">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path
+                                                d="M2 8a10 10 0 0 1 10-10M2 12a14 14 0 0 1 14-14M2 16a18 18 0 0 1 18-18" />
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div class="card-chip"></div>
+                                <div class="card-number font-space">•••• •••• •••• 4890</div>
+                                <div class="card-details">
+                                    <div class="card-holder">
+                                        <span class="card-label">TITULAIRE</span>
+                                        <span class="card-val font-space">MS service</span>
+                                    </div>
+                                    <div class="card-expiry">
+                                        <span class="card-label">EXPIRE</span>
+                                        <span class="card-val font-space">08/29</span>
+                                    </div>
+                                </div>
+                                <div class="card-networks">
+                                    <span class="network-tag uba">UBA GABON</span>
+                                    <span class="network-tag verso">VERSO CARD</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MINI DASHBOARD TRANSACTIONS -->
+                    <div class="dashboard-mockup hero-mockup">
+                        <div class="mockup-header">
+                            <div class="mockup-dots">
+                                <span class="dot red"></span>
+                                <span class="dot yellow"></span>
+                                <span class="dot green"></span>
+                            </div>
+                            <div class="mockup-title">conversion budgetaire en FCFA </div>
+                            <div class="mockup-status"><span class="status-indicator-blink"></span> Opérationnel</div>
+                        </div>
+
+                        <div class="mockup-body">
+                            <div class="converter-box">
+                                <span class="converter-title font-space">Simulateur de Change Direct</span>
+                                <div class="converter-flex">
+                                    <div class="currency-input">
+                                        <span class="currency-symbol">USD</span>
+                                        <span class="currency-val font-space" id="currency-usd">20.00</span>
+                                    </div>
+                                    <div class="converter-arrow">
+                                        <i data-lucide="arrow-right-left"></i>
+                                    </div>
+                                    <div class="currency-input">
+                                        <span class="currency-symbol">XAF</span>
+                                        <span class="currency-val font-space text-glow" id="currency-xaf">13 000</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="activation-feed" id="activation-feed">
+                                <div class="feed-item">
+                                    <span class="feed-time">À l'instant</span>
+                                    <span class="feed-text">Paiement <strong>Amazon (24.99 USD)</strong> effectué par
+                                        Carte UBA</span>
+                                    <span class="feed-status status-success">Payé</span>
+                                </div>
+                                <div class="feed-item">
+                                    <span class="feed-time">Il y a 3 min</span>
+                                    <span class="feed-text">Abonnement <strong>Netflix UHD</strong> activé par Carte
+                                        Verso</span>
+                                    <span class="feed-status status-success">Payé</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRUSTED BRANDS TICKER -->
+    <div class="brands-ticker-section">
+        <p class="ticker-label">Plateformes & Services compatibles</p>
+        <div class="ticker-track">
+            <span class="ticker-item"><span class="ticker-item-icon">🎬</span> Netflix</span>
+            <span class="ticker-item"><span class="ticker-item-icon">🤖</span> ChatGPT Plus</span>
+            <span class="ticker-item"><span class="ticker-item-icon">🎵</span> Spotify Premium</span>
+            <span class="ticker-item"><span class="ticker-item-icon">🎨</span> Canva Pro</span>
+            <span class="ticker-item"><span class="ticker-item-icon">🛒</span> Amazon</span>
+            <span class="ticker-item"><span class="ticker-item-icon">📱</span> App Store</span>
+            <span class="ticker-item"><span class="ticker-item-icon">▶️</span> Google Play</span>
+            <span class="ticker-item"><span class="ticker-item-icon">🎮</span> PlayStation Plus</span>
+            <span class="ticker-item"><span class="ticker-item-icon">☁️</span> iCloud Plus</span>
+            <span class="ticker-item"><span class="ticker-item-icon">🌐</span> Hostinger</span>
+            <span class="ticker-item"><span class="ticker-item-icon">📢</span> Facebook Ads</span>
+            <span class="ticker-item"><span class="ticker-item-icon">🔍</span> Google Ads</span>
+            <!-- Duplicate for seamless loop -->
+            <span class="ticker-item"><span class="ticker-item-icon">🎬</span> Netflix</span>
+            <span class="ticker-item"><span class="ticker-item-icon">🤖</span> ChatGPT Plus</span>
+            <span class="ticker-item"><span class="ticker-item-icon">🎵</span> Spotify Premium</span>
+            <span class="ticker-item"><span class="ticker-item-icon">🎨</span> Canva Pro</span>
+            <span class="ticker-item"><span class="ticker-item-icon">🛒</span> Amazon</span>
+            <span class="ticker-item"><span class="ticker-item-icon">📱</span> App Store</span>
+            <span class="ticker-item"><span class="ticker-item-icon">▶️</span> Google Play</span>
+            <span class="ticker-item"><span class="ticker-item-icon">🎮</span> PlayStation Plus</span>
+            <span class="ticker-item"><span class="ticker-item-icon">☁️</span> iCloud Plus</span>
+            <span class="ticker-item"><span class="ticker-item-icon">🌐</span> Hostinger</span>
+            <span class="ticker-item"><span class="ticker-item-icon">📢</span> Facebook Ads</span>
+            <span class="ticker-item"><span class="ticker-item-icon">🔍</span> Google Ads</span>
+        </div>
+    </div>
+
+    <!-- COMMENT CA MARCHE SECTION -->
+    <section class="section workflow-section" id="comment-ca-marche">
+        <div class="container">
+            <div class="section-header text-center scroll-reveal">
+                <span class="section-tagline">Méthode Sécurisée</span>
+                <h2 class="section-title">Comment fonctionne MS SERVICE ?</h2>
+                <p class="section-subtitle">Nous agissons comme intermédiaire de confiance pour vos transactions
+                    internationales.</p>
+            </div>
+
+            <div class="workflow-steps grid grid-4">
+                <div class="workflow-step-card scroll-reveal">
+                    <div class="step-num font-space">01</div>
+                    <div class="step-icon-wrap">
+                        <i data-lucide="shopping-bag" class="step-icon"></i>
+                        <div class="step-icon-glow"></div>
+                    </div>
+                    <h3>Sélection du Service</h3>
+                    <p>Vous choisissez un abonnement numérique ou vous nous indiquez le montant de la facture étrangère
+                        à payer (Amazon, App Store...).</p>
+                    <div class="step-connector">
+                        <svg viewBox="0 0 100 10" fill="none" preserveAspectRatio="none">
+                            <path d="M0,5 Q50,0 100,5" stroke="var(--primary-glow)" stroke-width="2"
+                                stroke-dasharray="4 4" />
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="workflow-step-card scroll-reveal">
+                    <div class="step-num font-space">02</div>
+                    <div class="step-icon-wrap">
+                        <i data-lucide="wallet" class="step-icon"></i>
+                        <div class="step-icon-glow"></div>
+                    </div>
+                    <h3>Paiement Local</h3>
+                    <p>Vous effectuez le transfert en FCFA via Mobile Money (Airtel Money, Moov Money) ou par dépôt
+                        direct.</p>
+                    <div class="step-connector">
+                        <svg viewBox="0 0 100 10" fill="none" preserveAspectRatio="none">
+                            <path d="M0,5 Q50,10 100,5" stroke="var(--secondary-glow)" stroke-width="2"
+                                stroke-dasharray="4 4" />
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="workflow-step-card scroll-reveal">
+                    <div class="step-num font-space">03</div>
+                    <div class="step-icon-wrap">
+                        <i data-lucide="credit-card" class="step-icon"></i>
+                        <div class="step-icon-glow"></div>
+                    </div>
+                    <h3>Paiement International</h3>
+                    <p>Nous utilisons nos cartes de crédit (UBA Gabon / Carte Verso) pour régler immédiatement votre
+                        achat à l'international.</p>
+                    <div class="step-connector">
+                        <svg viewBox="0 0 100 10" fill="none" preserveAspectRatio="none">
+                            <path d="M0,5 Q50,0 100,5" stroke="var(--primary-glow)" stroke-width="2"
+                                stroke-dasharray="4 4" />
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="workflow-step-card scroll-reveal">
+                    <div class="step-num font-space">04</div>
+                    <div class="step-icon-wrap">
+                        <i data-lucide="zap" class="step-icon"></i>
+                        <div class="step-icon-glow"></div>
+                    </div>
+                    <h3>Livraison Immédiate</h3>
+                    <p>Vos accès premium, codes ou reçus de transaction vous sont envoyés sur WhatsApp et par e-mail en
+                        moins de 5 minutes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section class="section services-section" id="services">
+        <div class="container">
+            <div class="section-header text-center scroll-reveal">
+                <span class="section-tagline">Nos Services Principaux</span>
+                <h2 class="section-title">Abonnements & Paiements Disponibles</h2>
+                <p class="section-subtitle">Profitez de services originaux, sécurisés et garantis à des tarifs
+                    compétitifs.</p>
+            </div>
+
+            <div class="services-grid grid grid-3">
+                <!-- Netflix -->
+                <div class="service-card scroll-reveal" data-service="Netflix">
+                    <div class="card-glow"></div>
+                    <div class="service-icon red">
+                        <i data-lucide="tv"></i>
+                    </div>
+                    <h3 class="service-title">Abonnement Netflix</h3>
+                    <p class="service-desc">Qualité Ultra HD 4K, profils privés configurés pour vous. Activé via nos
+                        cartes d'achat en quelques minutes.</p>
+                    <div class="service-meta font-space">
+                        <span class="meta-label">Délai :</span>
+                        <span class="meta-value text-glow">5 Minutes</span>
+                    </div>
+                    <div class="service-price-box font-space">
+                        <span class="price-label">À partir de</span>
+                        <span class="price-value">4 000 <span class="currency">FCFA</span></span>
+                        <span class="price-duration">/ Mois</span>
+                    </div>
+                    <button class="btn btn-card btn-glow btn-order" data-name="Netflix Premium"
+                        data-price="4 000 FCFA"><i data-lucide="shopping-cart"
+                            style="width: 16px; height: 16px; margin-right: 6px;"></i> Ajouter au panier</button>
+                </div>
+
+                <!-- Spotify -->
+                <div class="service-card scroll-reveal" data-service="Spotify">
+                    <div class="card-glow"></div>
+                    <div class="service-icon green">
+                        <i data-lucide="music"></i>
+                    </div>
+                    <h3 class="service-title">Spotify Premium</h3>
+                    <p class="service-desc">Musique sans publicité, mode hors connexion et son haute fidélité.
+                        Renouvellement garanti sur votre compte actuel.</p>
+                    <div class="service-meta font-space">
+                        <span class="meta-label">Délai :</span>
+                        <span class="meta-value text-glow">5 Minutes</span>
+                    </div>
+                    <div class="service-price-box font-space">
+                        <span class="price-label">À partir de</span>
+                        <span class="price-value">3 000 <span class="currency">FCFA</span></span>
+                        <span class="price-duration">/ Mois</span>
+                    </div>
+                    <button class="btn btn-card btn-glow btn-order" data-name="Spotify Premium"
+                        data-price="3 000 FCFA"><i data-lucide="shopping-cart"
+                            style="width: 16px; height: 16px; margin-right: 6px;"></i> Ajouter au panier</button>
+                </div>
+
+                <!-- Canva Pro -->
+                <div class="service-card scroll-reveal" data-service="Canva Pro">
+                    <div class="card-glow"></div>
+                    <div class="service-icon cyan">
+                        <i data-lucide="palette"></i>
+                    </div>
+                    <h3 class="service-title">Canva Pro</h3>
+                    <p class="service-desc">Accédez aux fonctionnalités professionnelles, images et templates premium.
+                        Invitation officielle par email.</p>
+                    <div class="service-meta font-space">
+                        <span class="meta-label">Délai :</span>
+                        <span class="meta-value text-glow">10 Minutes</span>
+                    </div>
+                    <div class="service-price-box font-space">
+                        <span class="price-label">À partir de</span>
+                        <span class="price-value">2 500 <span class="currency">FCFA</span></span>
+                        <span class="price-duration">/ Mois</span>
+                    </div>
+                    <button class="btn btn-card btn-glow btn-order" data-name="Canva Pro" data-price="2 500 FCFA"><i
+                            data-lucide="shopping-cart" style="width: 16px; height: 16px; margin-right: 6px;"></i>
+                        Ajouter au panier</button>
+                </div>
+
+                <!-- ChatGPT Plus -->
+                <div class="service-card scroll-reveal" data-service="ChatGPT Plus">
+                    <div class="card-glow"></div>
+                    <div class="service-icon purple">
+                        <i data-lucide="cpu"></i>
+                    </div>
+                    <h3 class="service-title">ChatGPT Plus (GPT-4)</h3>
+                    <p class="service-desc">Accès prioritaire aux modèles GPT-4o, DALL-E 3 et création de GPTs
+                        personnalisés. Paiement par carte sécurisé.</p>
+                    <div class="service-meta font-space">
+                        <span class="meta-label">Délai :</span>
+                        <span class="meta-value text-glow">5 Minutes</span>
+                    </div>
+                    <div class="service-price-box font-space">
+                        <span class="price-label">À partir de</span>
+                        <span class="price-value">15 000 <span class="currency">FCFA</span></span>
+                        <span class="price-duration">/ Mois</span>
+                    </div>
+                    <button class="btn btn-card btn-glow btn-order" data-name="ChatGPT Plus" data-price="15 000 FCFA"><i
+                            data-lucide="shopping-cart" style="width: 16px; height: 16px; margin-right: 6px;"></i>
+                        Ajouter au panier</button>
+                </div>
+
+                <!-- Paiements Internationaux -->
+                <div class="service-card scroll-reveal" data-service="Paiements Internationaux">
+                    <div class="card-glow"></div>
+                    <div class="service-icon blue">
+                        <i data-lucide="globe"></i>
+                    </div>
+                    <h3 class="service-title">Paiements Internationaux</h3>
+                    <p class="service-desc">Achats sur Amazon, App Store, Google Play, hébergements web et publicités en
+                        ligne (Facebook/Google Ads).</p>
+                    <div class="service-meta font-space">
+                        <span class="meta-label">Délai :</span>
+                        <span class="meta-value text-glow">Instantané</span>
+                    </div>
+                    <div class="service-price-box font-space">
+                        <span class="price-label">Commission</span>
+                        <span class="price-value">Frais variables</span>
+                        <span class="price-duration">/ Transaction</span>
+                    </div>
+                    <button class="btn btn-card btn-glow btn-order" data-name="Paiement International personnalisé"
+                        data-price="Sur devis">Demander un Paiement</button>
+                </div>
+
+                <!-- Cartes Virtuelles -->
+                <div class="service-card scroll-reveal" data-service="Cartes Virtuelles">
+                    <div class="card-glow"></div>
+                    <div class="service-icon yellow">
+                        <i data-lucide="credit-card"></i>
+                    </div>
+                    <h3 class="service-title">Activation Cartes Virtuelles</h3>
+                    <p class="service-desc">Nous générons et activons pour vous des cartes virtuelles temporaires
+                        créditées pour vos transactions privées.</p>
+                    <div class="service-meta font-space">
+                        <span class="meta-label">Délai :</span>
+                        <span class="meta-value text-glow">15 Minutes</span>
+                    </div>
+                    <div class="service-price-box font-space">
+                        <span class="price-label">À partir de</span>
+                        <span class="price-value">8 000 <span class="currency">FCFA</span></span>
+                        <span class="price-duration">/ Carte</span>
+                    </div>
+                    <button class="btn btn-card btn-glow btn-order" data-name="Carte Virtuelle"
+                        data-price="8 000 FCFA"><i data-lucide="shopping-cart"
+                            style="width: 16px; height: 16px; margin-right: 6px;"></i> Ajouter au panier</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERMEDIATE DETAILED SERVICES SECTION -->
+    <section class="section payments-detail-section" id="paiements">
+        <div class="container">
+            <div class="section-header text-center scroll-reveal">
+                <span class="section-tagline">Achats & Factures</span>
+                <h2 class="section-title">Paiements sur Plateformes Étrangères</h2>
+                <p class="section-subtitle">Nous réglons vos paniers d'achats et licences logicielles à votre place.</p>
+            </div>
+
+            <div class="payments-platforms-grid grid grid-4">
+                <div class="platform-card scroll-reveal">
+                    <div class="platform-logo apple">
+                        <i data-lucide="apple"></i>
+                    </div>
+                    <h3>Paiement App Store</h3>
+                    <p>Recharges de solde, achats d'applications ou abonnements iCloud Plus.</p>
+                    <span class="platform-speed font-space">Activation 5 min</span>
+                </div>
+
+                <div class="platform-card scroll-reveal">
+                    <div class="platform-logo google">
+                        <i data-lucide="play"></i>
+                    </div>
+                    <h3>Paiement Google Play</h3>
+                    <p>Achat de jeux, crédits in-app pour vos applications Android favorites.</p>
+                    <span class="platform-speed font-space">Activation 5 min</span>
+                </div>
+
+                <div class="platform-card scroll-reveal">
+                    <div class="platform-logo amazon">
+                        <i data-lucide="shopping-cart"></i>
+                    </div>
+                    <h3>Paiement Amazon</h3>
+                    <p>Règlement de vos paniers de commandes physiques ou abonnements Prime.</p>
+                    <span class="platform-speed font-space">Traitement rapide</span>
+                </div>
+
+                <div class="platform-card scroll-reveal">
+                    <div class="platform-logo web">
+                        <i data-lucide="server"></i>
+                    </div>
+                    <h3>Hébergement & Domaines</h3>
+                    <p>Paiement Hostinger, Namecheap, Shopify pour garder vos sites en ligne.</p>
+                    <span class="platform-speed font-space">Renouvellement direct</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS DASHBOARD SECTION -->
+    <section class="section stats-section">
+        <div class="container">
+            <div class="stats-dashboard grid grid-4">
+                <div class="stat-box text-center scroll-reveal">
+                    <span class="stat-number font-space" data-target="152">+</span>
+                    <span class="stat-label">Clients Satisfaits</span>
+                </div>
+                <div class="stat-box text-center scroll-reveal">
+                    <span class="stat-number font-space" data-target="96">+</span>
+                    <span class="stat-label">Abonnements Livrés</span>
+                </div>
+                <div class="stat-box text-center scroll-reveal">
+                    <span class="stat-number font-space" data-target="52">+</span>
+                    <span class="stat-label">Paiements Effectués</span>
+                </div>
+                <div class="stat-box text-center scroll-reveal">
+                    <span class="stat-number font-space" data-target="99">.9%</span>
+                    <span class="stat-label">Taux de Satisfaction</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- POURQUOI NOUS SECTION -->
+    <section class="section benefits-section" id="pourquoi-nous">
+        <div class="container">
+            <div class="section-header text-center scroll-reveal">
+                <span class="section-tagline">Pourquoi nous faire confiance ?</span>
+                <h2 class="section-title">Les garanties MS SERVICE</h2>
+                <p class="section-subtitle">Une structure locale pour surmonter les limitations des paiements
+                    internationaux au Gabon.</p>
+            </div>
+
+            <div class="benefits-grid grid grid-3">
+                <div class="benefit-card scroll-reveal">
+                    <div class="benefit-icon blue">
+                        <i data-lucide="shield-check"></i>
+                    </div>
+                    <h3>Paiements Sécurisés</h3>
+                    <p>Chaque transaction est tracée et nous utilisons nos propres cartes bancaires professionnelles et
+                        vérifiées.</p>
+                </div>
+
+                <div class="benefit-card scroll-reveal">
+                    <div class="benefit-icon green">
+                        <i data-lucide="zap"></i>
+                    </div>
+                    <h3>Livraison Ultra Rapide</h3>
+                    <p>Vos codes d'abonnements ou reçus de transaction sont générés et partagés sur WhatsApp en moins de
+                        5 minutes.</p>
+                </div>
+
+                <div class="benefit-card scroll-reveal">
+                    <div class="benefit-icon purple">
+                        <i data-lucide="credit-card"></i>
+                    </div>
+                    <h3>Compatible UBA Gabon</h3>
+                    <p>Nous exploitons les liaisons directes UBA Gabon pour assurer une connectivité et une
+                        disponibilité de fonds permanentes.</p>
+                </div>
+
+                <div class="benefit-card scroll-reveal">
+                    <div class="benefit-icon cyan">
+                        <i data-lucide="activity"></i>
+                    </div>
+                    <h3>Compatible Carte Verso</h3>
+                    <p>Bénéficiez du réseau sécurisé de la Carte Verso pour charger vos comptes et effectuer vos
+                        demandes d'achats.</p>
+                </div>
+
+                <div class="benefit-card scroll-reveal">
+                    <div class="benefit-icon orange">
+                        <i data-lucide="phone-call"></i>
+                    </div>
+                    <h3>Assistance WhatsApp 24/7</h3>
+                    <p>Notre support technique est basé au Gabon et répond en français en continu à toutes vos
+                        questions.</p>
+                </div>
+
+                <div class="benefit-card scroll-reveal">
+                    <div class="benefit-icon yellow">
+                        <i data-lucide="check-circle-2"></i>
+                    </div>
+                    <h3>Service Fiable & Garanti</h3>
+                    <p>Nous garantissons le bon déroulement de vos paiements. En cas de blocage tiers, nous prenons en
+                        charge la réactivation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TARIFS SECTION -->
+    <section class="section pricing-section" id="tarifs">
+        <div class="container">
+            <div class="section-header text-center scroll-reveal">
+                <span class="section-tagline">Tarifs de Service</span>
+                <h2 class="section-title">Tableau des Tarifs & Commissions</h2>
+                <p class="section-subtitle">Des prix clairs sans frais cachés. Vous payez la valeur réelle + nos frais
+                    d'intermédiation.</p>
+            </div>
+
+            <div class="pricing-table-container scroll-reveal">
+                <div class="pricing-table-wrapper">
+                    <table class="pricing-table">
+                        <thead>
+                            <tr>
+                                <th>Service / Type d'Achat</th>
+                                <th>Durée</th>
+                                <th>Délai Moyen</th>
+                                <th>Tarif Total (FCFA)</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="product-info">
+                                    <div class="product-flex">
+                                        <span class="dot-indicator red"></span>
+                                        <strong>Netflix Premium (UHD 4K)</strong>
+                                    </div>
+                                </td>
+                                <td>1 Mois</td>
+                                <td>5 Minutes</td>
+                                <td class="price-col font-space">5 000 FCFA</td>
+                                <td><button class="btn btn-table btn-order" data-name="Netflix Premium"
+                                        data-price="5 000 FCFA">Commander</button></td>
+                            </tr>
+                            <tr>
+                                <td class="product-info">
+                                    <div class="product-flex">
+                                        <span class="dot-indicator green"></span>
+                                        <strong>Spotify Premium Personnel</strong>
+                                    </div>
+                                </td>
+                                <td>1 Mois</td>
+                                <td>5 Minutes</td>
+                                <td class="price-col font-space">3 000 FCFA</td>
+                                <td><button class="btn btn-table btn-order" data-name="Spotify Premium"
+                                        data-price="3 000 FCFA">Commander</button></td>
+                            </tr>
+                            <tr>
+                                <td class="product-info">
+                                    <div class="product-flex">
+                                        <span class="dot-indicator cyan"></span>
+                                        <strong>Canva Pro Individuel</strong>
+                                    </div>
+                                </td>
+                                <td>1 Mois</td>
+                                <td>10 Minutes</td>
+                                <td class="price-col font-space">4 000 FCFA</td>
+                                <td><button class="btn btn-table btn-order" data-name="Canva Pro"
+                                        data-price="4 000 FCFA">Commander</button></td>
+                            </tr>
+                            <tr class="featured-row">
+                                <td class="product-info">
+                                    <div class="product-flex">
+                                        <span class="dot-indicator purple"></span>
+                                        <strong>ChatGPT Plus (GPT-4o)</strong>
+                                        <span class="table-tag">Recommandé</span>
+                                    </div>
+                                </td>
+                                <td>1 Mois</td>
+                                <td>5 Minutes</td>
+                                <td class="price-col font-space text-glow">15 000 FCFA</td>
+                                <td><button class="btn btn-table btn-primary btn-order" data-name="ChatGPT Plus"
+                                        data-price="15 000 FCFA">Commander</button></td>
+                            </tr>
+                            <tr>
+                                <td class="product-info">
+                                    <div class="product-flex">
+                                        <span class="dot-indicator blue"></span>
+                                        <strong>PlayStation Plus Essential</strong>
+                                    </div>
+                                </td>
+                                <td>1 Mois</td>
+                                <td>15 Minutes</td>
+                                <td class="price-col font-space">8 000 FCFA</td>
+                                <td><button class="btn btn-table btn-order" data-name="PlayStation Plus"
+                                        data-price="8 000 FCFA">Commander</button></td>
+                            </tr>
+                            <tr>
+                                <td class="product-info">
+                                    <div class="product-flex">
+                                        <span class="dot-indicator orange"></span>
+                                        <strong>Frais Paiement Tiers (1 - 50 USD)</strong>
+                                    </div>
+                                </td>
+                                <td>Unique</td>
+                                <td>Instantané</td>
+                                <td class="price-col font-space">Valeur + 2 500 FCFA</td>
+                                <td><button class="btn btn-table btn-order" data-name="Paiement Tiers (1-50 USD)"
+                                        data-price="Valeur + 2 500 FCFA">Faire un Paiement</button></td>
+                            </tr>
+                            <tr>
+                                <td class="product-info">
+                                    <div class="product-flex">
+                                        <span class="dot-indicator yellow"></span>
+                                        <strong>Frais Paiement Tiers (51 - 150 USD)</strong>
+                                    </div>
+                                </td>
+                                <td>Unique</td>
+                                <td>Instantané</td>
+                                <td class="price-col font-space">Valeur + 5 000 FCFA</td>
+                                <td><button class="btn btn-table btn-order" data-name="Paiement Tiers (51-150 USD)"
+                                        data-price="Valeur + 5 000 FCFA">Faire un Paiement</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TEMOIGNAGES SECTION -->
+    <section class="section testimonials-section" id="temoignages">
+        <div class="container">
+            <div class="section-header text-center scroll-reveal">
+                <span class="section-tagline">Avis Clients</span>
+                <h2 class="section-title">Ce que disent nos clients au Gabon</h2>
+                <p class="section-subtitle">Découvrez les retours d'expérience de nos utilisateurs à Libreville,
+                    Port-Gentil, Franceville et partout ailleurs.</p>
+            </div>
+
+            <div class="testimonials-slider-container scroll-reveal">
+                <div class="testimonials-slider" id="testimonials-slider">
+                    <!-- Slide 1 -->
+                    <div class="testimonial-slide active">
+                        <div class="testimonial-content">
+                            <div class="rating">
+                                <i data-lucide="star" class="fill-star"></i>
+                                <i data-lucide="star" class="fill-star"></i>
+                                <i data-lucide="star" class="fill-star"></i>
+                                <i data-lucide="star" class="fill-star"></i>
+                                <i data-lucide="star" class="fill-star"></i>
+                            </div>
+                            <p class="comment">"Grâce à MS SERVICE, j'ai pu régler mes frais d'hébergement web Hostinger
+                                pour mon entreprise. J'ai payé par Airtel Money et la transaction internationale a été
+                                effectuée dans la foulée. Service impeccable !"</p>
+                            <div class="client-info">
+                                <div class="client-avatar">
+                                    <span class="avatar-text">KO</span>
+                                </div>
+                                <div class="client-details">
+                                    <h4 class="client-name">Karl Obame</h4>
+                                    <p class="client-location">Libreville, Gabon</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2 -->
+                    <div class="testimonial-slide">
+                        <div class="testimonial-content">
+                            <div class="rating">
+                                <i data-lucide="star" class="fill-star"></i>
+                                <i data-lucide="star" class="fill-star"></i>
+                                <i data-lucide="star" class="fill-star"></i>
+                                <i data-lucide="star" class="fill-star"></i>
+                                <i data-lucide="star" class="fill-star"></i>
+                            </div>
+                            <p class="comment">"Super pratique pour acheter mes jeux sur l'App Store et recharger mon
+                                compte Google Play. Je n'ai plus besoin de carte bancaire internationale, MS SERVICE
+                                règle tout en quelques minutes."</p>
+                            <div class="client-info">
+                                <div class="client-avatar">
+                                    <span class="avatar-text">AM</span>
+                                </div>
+                                <div class="client-details">
+                                    <h4 class="client-name">Audrey Moussavou</h4>
+                                    <p class="client-location">Port-Gentil, Gabon</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3 -->
+                    <div class="testimonial-slide">
+                        <div class="testimonial-content">
+                            <div class="rating">
+                                <i data-lucide="star" class="fill-star"></i>
+                                <i data-lucide="star" class="fill-star"></i>
+                                <i data-lucide="star" class="fill-star"></i>
+                                <i data-lucide="star" class="fill-star"></i>
+                                <i data-lucide="star" class="fill-star"></i>
+                            </div>
+                            <p class="comment">"J'ai souscrit à ChatGPT Plus via leur carte UBA. Ils ont fait le
+                                paiement sous mes yeux via WhatsApp et m'ont donné les accès. Vraiment professionnel et
+                                réactif !"</p>
+                            <div class="client-info">
+                                <div class="client-avatar">
+                                    <span class="avatar-text">YND</span>
+                                </div>
+                                <div class="client-details">
+                                    <h4 class="client-name">Yannick N'Dong</h4>
+                                    <p class="client-location">Franceville, Gabon</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slider-controls">
+                    <button class="slider-btn prev-btn" id="prev-slide" aria-label="Avis précédent">
+                        <i data-lucide="chevron-left"></i>
+                    </button>
+                    <div class="slider-dots" id="slider-dots">
+                        <!-- Generates via JS -->
+                    </div>
+                    <button class="slider-btn next-btn" id="next-slide" aria-label="Avis suivant">
+                        <i data-lucide="chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="section faq-section" id="faq">
+        <div class="container">
+            <div class="section-header text-center scroll-reveal">
+                <span class="section-tagline">Des réponses à vos questions</span>
+                <h2 class="section-title">Foire Aux Questions</h2>
+                <p class="section-subtitle">Tout ce que vous devez savoir sur notre système de paiement intermédiaire.
+                </p>
+            </div>
+
+            <div class="faq-accordion-container scroll-reveal">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Comment effectuer le paiement ?</span>
+                        <span class="faq-icon"><i data-lucide="plus"></i></span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Le paiement s'effectue en monnaie locale (FCFA). Une fois que vous avez validé votre besoin
+                            de paiement avec nous, vous nous envoyez le montant convenu via Airtel Money ou Moov Money.
+                            Nous pouvons également convenir d'un dépôt d'espèces ou d'un virement local.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Quels moyens de paiement acceptez-vous ?</span>
+                        <span class="faq-icon"><i data-lucide="plus"></i></span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Nous acceptons principalement Airtel Money Gabon, Moov Money Gabon, les dépôts d'espèces à
+                            Libreville et les virements bancaires locaux vers notre compte UBA Gabon.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Combien de temps prend la livraison ?</span>
+                        <span class="faq-icon"><i data-lucide="plus"></i></span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>En moyenne, la transaction internationale ou l'activation d'abonnement est effectuée en moins
+                            de 5 minutes après réception de votre paiement Mobile Money. Pour les achats plus complexes
+                            sur des sites marchands spécifiques, le traitement prend maximum 30 minutes.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Les paiements sont-ils sécurisés ?</span>
+                        <span class="faq-icon"><i data-lucide="plus"></i></span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Absolument. Nous utilisons nos propres cartes bancaires internationales sécurisées (Cartes
+                            Visa/Mastercard UBA Gabon et Carte Verso). Nous effectuons le paiement pour vous, ce qui
+                            signifie que vous n'avez pas à partager vos coordonnées bancaires personnelles en ligne et
+                            que vos fonds locaux sont protégés.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Acceptez-vous Mobile Money au Gabon ?</span>
+                        <span class="faq-icon"><i data-lucide="plus"></i></span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Oui ! C'est le moyen le plus simple et le plus rapide pour nos clients. Airtel Money et Moov
+                            Money sont entièrement supportés pour recevoir vos paiements locaux instantanément.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section class="section contact-section" id="contact">
+        <div class="container grid grid-2">
+            <div class="contact-info scroll-reveal">
+                <span class="section-tagline">Contactez-nous</span>
+                <h2 class="section-title">Besoin d'un paiement spécifique ?</h2>
+                <p class="contact-desc">
+                    Vous avez un panier d'achat à régler sur un site étranger ou un abonnement sur-mesure ? Envoyez-nous
+                    les détails et nous effectuerons la transaction.
+                </p>
+
+                <div class="contact-methods">
+                    <a href="https://wa.me/241074083695" target="_blank" class="contact-card">
+                        <div class="contact-card-icon whatsapp">
+                            <i data-lucide="phone-call"></i>
+                        </div>
+                        <div class="contact-card-details">
+                            <span class="label">WhatsApp Direct</span>
+                            <span class="value">+241 074-08-36-95 (Gabon)</span>
+                        </div>
+                    </a>
+
+                    <a href="mailto:morelstone15@gmail.com" class="contact-card">
+                        <div class="contact-card-icon email">
+                            <i data-lucide="mail"></i>
+                        </div>
+                        <div class="contact-card-details">
+                            <span class="label">Adresse E-mail</span>
+                            <span class="value">morelstone15@gmail.com</span>
+                        </div>
+                    </a>
+
+                    <div class="contact-card">
+                        <div class="contact-card-icon map">
+                            <i data-lucide="map-pin"></i>
+                        </div>
+                        <div class="contact-card-details">
+                            <span class="label">Siège Social</span>
+                            <span class="value">Libreville, Gabon</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="social-links-container">
+                    <p class="social-title">Suivez-nous :</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/share/1CsRsUcwjW/?mibextid=wwXIfr" class="social-btn"
+                            aria-label="Facebook"><i data-lucide="facebook"></i></a>
+                        <a href="#" class="social-btn" aria-label="Instagram"><i data-lucide="instagram"></i></a>
+                        <a href="https://www.tiktok.com/@morelstone?is_from_webapp=1&sender_device=pc"
+                            class="social-btn" aria-label="Tiktok"><i data-lucide="tiktok"></i></a>
+                        <a href="#" class="social-btn" aria-label="LinkedIn"><i data-lucide="linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form-wrap scroll-reveal">
+                <div class="form-container">
+                    <h3 class="form-title">Demande de Paiement / Devis</h3>
+                    <p class="form-subtitle">Décrivez votre demande et nous vous enverrons le coût en FCFA.</p>
+
+                    <form class="contact-form" id="contact-form" action="#" method="POST">
+                        <div class="form-group grid grid-2-form">
+                            <div>
+                                <label for="name">Votre Nom</label>
+                                <div class="input-wrap">
+                                    <i data-lucide="user" class="input-icon"></i>
+                                    <input type="text" id="name" placeholder="Karl Obame" required>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="phone">Numéro WhatsApp</label>
+                                <div class="input-wrap">
+                                    <i data-lucide="phone" class="input-icon"></i>
+                                    <input type="tel" id="phone" placeholder="+241 ..." required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email-field">Adresse E-mail</label>
+                            <div class="input-wrap">
+                                <i data-lucide="at-sign" class="input-icon"></i>
+                                <input type="email" id="email-field" placeholder="karl@gmail.com" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">Type de service souhaité</label>
+                            <div class="input-wrap">
+                                <i data-lucide="help-circle" class="input-icon"></i>
+                                <select id="subject">
+                                    <option value="abonnement">Abonnement (Netflix, Spotify, ChatGPT...)</option>
+                                    <option value="achat-site">Achat sur site étranger (Amazon, etc.)</option>
+                                    <option value="app-store">Crédits App Store / Google Play</option>
+                                    <option value="carte-virtuelle">Carte bancaire virtuelle</option>
+                                    <option value="hebergement">Hébergement Web & Domaine</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Détails de la commande (Lien du produit, montant en $, etc.)</label>
+                            <textarea id="message" rows="4"
+                                placeholder="Bonjour, je souhaite payer un panier Amazon de 45 USD. Voici le lien du produit ou les détails..."
+                                required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-glow btn-block">
+                            <span>Envoyer ma demande</span>
+                            <i data-lucide="send"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container footer-container grid grid-4-footer">
+            <div class="footer-brand">
+                <a href="#accueil" class="logo">
+                    <span class="logo-icon">
+                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <polygon points="50,10 90,30 90,70 50,90 10,70 10,30" stroke="url(#footer-logo-grad)"
+                                stroke-width="8" fill="none" />
+                            <path d="M30 45 L50 65 L70 45" stroke="url(#footer-logo-grad)" stroke-width="8"
+                                stroke-linecap="round" fill="none" />
+                            <defs>
+                                <linearGradient id="footer-logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#00f0ff" />
+                                    <stop offset="100%" stop-color="#ab20fd" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </span>
+                    <span class="logo-text">MS <span class="accent-text">SERVICE</span></span>
+                </a>
+                <p class="brand-desc">
+                    Votre passerelle sécurisée d'accès aux paiements internationaux et services numériques au Gabon.
+                </p>
+            </div>
+
+            <div class="footer-links">
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="#accueil">Accueil</a></li>
+                    <li><a href="#comment-ca-marche">Comment ça marche</a></li>
+                    <li><a href="#services">Nos Services</a></li>
+                    <li><a href="#tarifs">Nos Tarifs</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>Services de Paiement</h4>
+                <ul>
+                    <li><a href="#services" class="footer-service-link" data-service="Netflix">Abonnements Netflix</a>
+                    </li>
+                    <li><a href="#services" class="footer-service-link"
+                            data-service="Paiements Internationaux">Paiements Amazon / App Store</a></li>
+                    <li><a href="#services" class="footer-service-link" data-service="ChatGPT Plus">ChatGPT Plus
+                            GPT-4</a></li>
+                    <li><a href="#services" class="footer-service-link" data-service="Cartes Virtuelles">Cartes
+                            Virtuelles</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>Légal & Contact</h4>
+                <ul>
+                    <li><a href="#contact">Contact technique</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="terms.html">Conditions d'utilisation</a></li>
+                    <li><a href="privacy.html">Politique de confidentialité</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container footer-bottom-flex">
+                <p class="copyright">&copy; 2026 MS SERVICE. Tous droits réservés. Intermédiaire numérique au Gabon 🇬🇦
+                </p>
+                <div class="footer-payment-icons">
+                    <span class="badge-card airtel">Airtel Money</span>
+                    <span class="badge-card moov">Moov Money</span>
+                    <span class="badge-card uba">Cartes UBA</span>
+                    <span class="badge-card verso">Carte Verso</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- FLOATING WHATSAPP BUTTON -->
+    <a href="https://wa.me/241074083695?text=Bonjour%20MS%20Service,%20je%20souhaite%20effectuer%20un%20paiement%20international."
+        target="_blank" class="whatsapp-float" id="whatsapp-float" aria-label="Discuter sur WhatsApp">
+        <span class="whatsapp-pulse"></span>
+        <svg viewBox="0 0 24 24" class="whatsapp-svg">
+            <path fill="currentColor"
+                d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.96 9.96 0 0 0 1.37 5.054L2 22l5.13-1.346a9.921 9.921 0 0 0 4.88 1.28h.005c5.505 0 9.989-4.478 9.99-9.985C22.008 6.478 17.521 2 12.012 2zm6.29 13.913c-.272.766-1.57 1.48-2.146 1.58-.574.1-1.306.183-3.864-.87-3.267-1.345-5.328-4.664-5.49-4.88-.163-.217-1.3-1.73-1.3-3.298 0-1.57.816-2.342 1.107-2.645.292-.303.64-.378.855-.378.214 0 .43.003.616.012.193.008.455-.072.71.547.262.637.897 2.193.975 2.35.077.158.13.342.025.55-.104.21-.157.34-.31.517-.156.178-.328.397-.468.533-.153.15-.313.313-.135.62.178.304.793 1.307 1.7 2.115 1.17 1.042 2.15 1.365 2.453 1.517.303.153.48.13.66-.078.18-.21.782-.907.99-1.217.208-.31.417-.26.702-.155.285.105 1.81.854 2.12.1.312-.753.312-1.408.204-1.62-.108-.21-.43-.338-.91-.577z" />
+        </svg>
+        <span class="whatsapp-badge">1</span>
+    </a>
+
+    <!-- CART DRAWER -->
+    <div class="cart-drawer" id="cart-drawer">
+        <div class="cart-drawer-backdrop" id="cart-drawer-backdrop"></div>
+        <div class="cart-drawer-content">
+            <div class="cart-drawer-header">
+                <h3><i data-lucide="shopping-cart"></i> Votre Panier</h3>
+                <button class="btn-close" id="cart-close" aria-label="Fermer le panier">&times;</button>
+            </div>
+            <div class="cart-drawer-items" id="cart-drawer-items">
+                <!-- Injected via JS -->
+            </div>
+            <div class="cart-drawer-footer">
+                <div class="cart-summary-row">
+                    <span>Sous-total</span>
+                    <span id="cart-subtotal">0 FCFA</span>
+                </div>
+                <div class="cart-summary-row">
+                    <span>Frais de service</span>
+                    <span id="cart-fees">0 FCFA</span>
+                </div>
+                <div class="cart-summary-row total">
+                    <span>Total à payer</span>
+                    <span id="cart-total" class="text-glow">0 FCFA</span>
+                </div>
+                <button class="btn btn-primary btn-glow btn-block" id="cart-checkout-btn" style="margin-bottom: 10px;">
+                    <span>Valider la commande</span>
+                    <i data-lucide="arrow-right"></i>
+                </button>
+                <button class="btn btn-secondary btn-block" id="cart-clear-btn">
+                    <span>Vider le panier</span>
+                    <i data-lucide="trash-2"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- RECEIPT MODAL -->
+    <div class="receipt-modal" id="receipt-modal" style="display: none;">
+        <div class="receipt-modal-backdrop" id="receipt-modal-backdrop"></div>
+        <div class="receipt-modal-content-wrapper">
+            <div class="auth-card receipt-card">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <div class="logo-spinner" style="margin: 0 auto 10px; width: 60px; height: 60px;">
+                        <span class="loader-text" style="font-size: 1.2rem;">MS</span>
+                    </div>
+                    <h2 style="font-family: var(--font-title); font-size: 1.5rem; margin-bottom: 5px;">Reçu de Commande
+                    </h2>
+                    <p style="font-size: 0.85rem; color: var(--text-soft);" id="receipt-invoice-id">N° MS-XXXXXX</p>
+                </div>
+
+                <div class="receipt-details mb-4"
+                    style="border-bottom: 1px dashed var(--border); padding-bottom: 15px; font-size: 0.9rem; text-align: left; line-height: 1.6;">
+                    <p><strong>Client :</strong> <span id="receipt-client-name">Karl Obame</span></p>
+                    <p><strong>Date :</strong> <span id="receipt-date">26/05/2026</span></p>
+                </div>
+
+                <div id="receipt-items-list"
+                    style="margin-bottom: 15px; border-bottom: 1px dashed var(--border); padding-bottom: 15px;">
+                    <!-- Items populated dynamically by script.js -->
+                </div>
+
+                <div style="font-size: 0.9rem; margin-bottom: 15px;">
+                    <div
+                        style="display: flex; justify-content: space-between; margin-bottom: 6px; color: var(--text-soft);">
+                        <span>Sous-total</span>
+                        <span id="receipt-subtotal">0 FCFA</span>
+                    </div>
+                    <div
+                        style="display: flex; justify-content: space-between; font-weight: 700; font-size: 1.1rem; padding-top: 10px; border-top: 1px dashed var(--border);">
+                        <span>Total</span>
+                        <span id="receipt-total-val" style="color: var(--primary);">0 FCFA</span>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                    <button class="btn btn-secondary" id="receipt-close-btn"
+                        style="flex: 1; padding: 10px;">Fermer</button>
+                    <button class="btn btn-primary btn-glow" id="receipt-whatsapp-btn"
+                        style="flex: 1; padding: 10px; color:#000;">
+                        <i data-lucide="phone"></i> WhatsApp Paiement
+                    </button>
+                    <button class="btn btn-secondary" id="receipt-continue-btn"
+                        style="flex: 1; padding: 10px;">Continuer vos achats</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lucide Icons library via CDN (used dynamically in script.js) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="auth.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Build user navigation bar dynamically for both desktop & mobile
+        (function () {
+            const user = Auth.getCurrentUser();
+
+            // 1. Desktop Nav Actions
+            const deskContainer = document.querySelector('.navbar-actions');
+            if (deskContainer) {
+                const deskNav = document.createElement('div');
+                deskNav.id = 'userNavDesk';
+                deskNav.className = 'user-nav-desktop';
+
+                if (user) {
+                    const dashLink = document.createElement('a');
+                    dashLink.href = 'dashboard.html';
+                    dashLink.className = 'user-tag-link';
+                    dashLink.innerHTML = `<span class="user-tag"><i data-lucide="user" style="width:14px;height:14px;margin-right:4px;"></i>${user.nom}</span>`;
+                    deskNav.appendChild(dashLink);
+
+                    if (Auth.isAdmin()) {
+                        const adminBtn = document.createElement('a');
+                        adminBtn.href = 'admin.html';
+                        adminBtn.textContent = '🛡️ Admin';
+                        adminBtn.className = 'btn btn-primary';
+                        adminBtn.style.padding = '6px 14px';
+                        adminBtn.style.fontSize = '0.8rem';
+                        deskNav.appendChild(adminBtn);
+                    }
+
+                    const logoutBtn = document.createElement('button');
+                    logoutBtn.textContent = 'Déconnexion';
+                    logoutBtn.className = 'btn btn-secondary';
+                    logoutBtn.style.padding = '6px 14px';
+                    logoutBtn.style.fontSize = '0.8rem';
+                    logoutBtn.addEventListener('click', () => {
+                        Auth.clear();
+                        window.location.reload();
+                    });
+                    deskNav.appendChild(logoutBtn);
+                } else {
+                    const loginBtn = document.createElement('a');
+                    loginBtn.href = 'login.html';
+                    loginBtn.innerHTML = '<i data-lucide="user" style="width:14px;height:14px;"></i> Connexion';
+                    loginBtn.className = 'btn btn-primary';
+                    loginBtn.style.padding = '6px 14px';
+                    loginBtn.style.fontSize = '0.8rem';
+                    loginBtn.style.display = 'flex';
+                    loginBtn.style.alignItems = 'center';
+                    loginBtn.style.gap = '6px';
+                    deskNav.appendChild(loginBtn);
+                }
+
+                // Insert before mobile-toggle
+                const mobileToggle = document.getElementById('mobile-toggle');
+                if (mobileToggle) {
+                    deskContainer.insertBefore(deskNav, mobileToggle);
+                } else {
+                    deskContainer.appendChild(deskNav);
+                }
+            }
+
+            // 2. Mobile Menu (add links to the bottom of the list)
+            const mobileMenu = document.querySelector('#nav-menu .nav-list');
+            if (mobileMenu) {
+                const li = document.createElement('li');
+                li.className = 'mobile-user-actions';
+                li.style.marginTop = '20px';
+                li.style.borderTop = '1px solid var(--border)';
+                li.style.paddingTop = '20px';
+                li.style.display = 'flex';
+                li.style.flexDirection = 'column';
+                li.style.gap = '10px';
+
+                if (user) {
+                    const dashLink = document.createElement('a');
+                    dashLink.href = 'dashboard.html';
+                    dashLink.className = 'nav-link';
+                    dashLink.style.display = 'flex';
+                    dashLink.style.alignItems = 'center';
+                    dashLink.style.gap = '8px';
+                    dashLink.innerHTML = `<i data-lucide="layout-dashboard" style="width:16px;height:16px;"></i> Tableau de bord (${user.nom})`;
+                    li.appendChild(dashLink);
+
+                    if (Auth.isAdmin()) {
+                        const adminLink = document.createElement('a');
+                        adminLink.href = 'admin.html';
+                        adminLink.className = 'nav-link';
+                        adminLink.style.color = 'var(--primary)';
+                        adminLink.innerHTML = '🛡️ Administration';
+                        li.appendChild(adminLink);
+                    }
+
+                    const logoutBtn = document.createElement('a');
+                    logoutBtn.href = '#';
+                    logoutBtn.className = 'nav-link';
+                    logoutBtn.style.color = 'var(--danger)';
+                    logoutBtn.innerHTML = '<i data-lucide="log-out" style="width:16px;height:16px;"></i> Déconnexion';
+                    logoutBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        Auth.clear();
+                        window.location.reload();
+                    });
+                    li.appendChild(logoutBtn);
+                } else {
+                    const loginLink = document.createElement('a');
+                    loginLink.href = 'login.html';
+                    loginLink.className = 'nav-link';
+                    loginLink.innerHTML = '<i data-lucide="log-in" style="width:16px;height:16px;"></i> Se connecter / S\'inscrire';
+                    li.appendChild(loginLink);
+                }
+                mobileMenu.appendChild(li);
+            }
+
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        })();
+    </script>
+</body>
+
+</html>

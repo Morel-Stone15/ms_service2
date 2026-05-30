@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration – MS SERVICE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .admin-wrap { max-width:1200px; margin:0 auto; padding:70px 20px 60px; position:relative; z-index:10; }
+        .admin-topbar { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
+            background:var(--bg-card); padding:16px 24px; border-radius:var(--radius-md); border:1px solid var(--border);
+            backdrop-filter:blur(20px); margin-bottom:32px; }
+        .admin-section { background:var(--bg-card); padding:28px; border-radius:var(--radius-md);
+            border:1px solid var(--border); margin-bottom:28px; }
+        .admin-section h2 { font-family:var(--font-title); font-size:1.1rem; margin-bottom:18px;
+            display:flex; align-items:center; gap:8px; }
+        .stats-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-bottom:32px; }
+        @media(max-width:900px){ .stats-grid{grid-template-columns:repeat(2,1fr);} }
+        @media(max-width:520px){ .stats-grid{grid-template-columns:1fr;} }
+        .stat-card { background:var(--bg-card); padding:18px; border-radius:var(--radius-md);
+            border:1px solid var(--border); text-align:center; }
+        .stat-num { display:block; font-size:2.2rem; font-weight:700; font-family:var(--font-title); line-height:1; }
+        .stat-lbl { display:block; color:var(--text-soft); font-size:0.82rem; margin-top:6px; }
+    </style>
+</head>
+<body>
+    <div class="bg-glow-container">
+        <div class="bg-glow glow-1"></div>
+        <div class="bg-glow glow-2"></div>
+        <div class="bg-glow glow-3"></div>
+    </div>
+
+    <div class="admin-wrap">
+        <!-- Top bar -->
+        <div class="admin-topbar">
+            <h1 style="font-family:var(--font-title); font-size:1.3rem; margin:0;">🛡️ Administration MS SERVICE</h1>
+            <div style="display:flex; gap:10px; align-items:center;">
+                <a href="index.html" class="btn btn-secondary" style="padding:7px 14px; font-size:0.82rem;">
+                    <i data-lucide="arrow-left"></i> Retour au site
+                </a>
+                <button id="logoutBtn" class="btn btn-secondary" style="padding:7px 14px; font-size:0.82rem;">
+                    <i data-lucide="log-out"></i> Déconnexion
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-num text-glow" id="statUsers">0</span>
+                <span class="stat-lbl">Utilisateurs</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-num" id="statActive" style="color:var(--success);">0</span>
+                <span class="stat-lbl">Actifs</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-num" id="statSuspended" style="color:var(--danger);">0</span>
+                <span class="stat-lbl">Suspendus</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-num" id="statOrders" style="color:var(--primary);">0</span>
+                <span class="stat-lbl">Commandes</span>
+            </div>
+        </div>
+
+        <!-- Users table -->
+        <div class="admin-section">
+            <h2>👥 Utilisateurs inscrits</h2>
+            <div class="pricing-table-container">
+                <div class="pricing-table-wrapper">
+                    <table class="pricing-table" id="usersTable">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Email</th>
+                                <th>Téléphone</th>
+                                <th>Rôle</th>
+                                <th>Statut</th>
+                                <th>Inscrit le</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <p id="noUsers" class="text-muted-center" style="display:none;">Aucun utilisateur.</p>
+        </div>
+
+        <!-- Orders table -->
+        <div class="admin-section">
+            <h2>📋 Toutes les commandes</h2>
+            <div class="pricing-table-container">
+                <div class="pricing-table-wrapper">
+                    <table class="pricing-table" id="ordersTable" style="display:none;">
+                        <thead>
+                            <tr>
+                                <th>Client</th>
+                                <th>Service</th>
+                                <th>Montant</th>
+                                <th>Statut</th>
+                                <th>Date</th>
+                                <th>Mettre à jour</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <p id="noOrders" class="text-muted-center">Aucune commande pour le moment.</p>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>lucide.createIcons();</script>
+    <script src="auth.js"></script>
+    <script>
+        if (!Auth.requireAdmin()) { /* redirected */ }
+
+        async function renderUsers() {
+            const [users, orders] = await Promise.all([Auth.getAllUsers(), Auth.getAllOrders()]);
+            const clients = users.filter(u => u.role !== 'admin');
+            document.getElementById('statUsers').textContent     = clients.length;
+            document.getElementById('statActive').textContent    = clients.filter(u => u.status === 'active').length;
+            document.getElementById('statSuspended').textContent = users.filter(u => u.status === 'suspended').length;
+            document.getElementById('statOrders').textContent    = orders.length;
+
+            const tbody = document.querySelector('#usersTable tbody');
+            tbody.innerHTML = '';
+            document.getElementById('noUsers').style.display = users.length === 0 ? 'block' : 'none';
+
+            users.forEach(u => {
+                const isAdmin = u.role === 'admin';
+                const date    = u.date_creation ? new Date(u.date_creation).toLocaleDateString('fr-FR') : '—';
+                const statusClass = u.status === 'active' ? 'status-active' : 'status-suspended';
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="font-weight:600;">${u.nom}</td>
+                    <td style="color:var(--text-soft); font-size:0.85rem;">${u.email}</td>
+                    <td style="color:var(--text-muted); font-size:0.85rem;">${u.telephone || u.phone || '—'}</td>
+                    <td><span class="role-badge role-${u.role}">${isAdmin ? 'Admin' : 'Client'}</span></td>
+                    <td><span class="status-badge ${statusClass}">${u.status === 'active' ? '● Actif' : '● Suspendu'}</span></td>
+                    <td style="color:var(--text-muted); font-size:0.82rem;">${date}</td>
+                    <td>${isAdmin ? '<span style="color:#555;">—</span>' : `
+                        <button class="btn-sm btn-toggle" data-id="${u.id}">
+                            ${u.status === 'active' ? '⏸ Suspendre' : '▶ Activer'}
+                        </button>
+                        <button class="btn-sm btn-delete" data-id="${u.id}">🗑 Supprimer</button>
+                    `}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            document.querySelectorAll('.btn-toggle').forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    btn.disabled = true; btn.textContent = '⏳';
+                    await Auth.toggleUserStatus(btn.dataset.id);
+                    await renderUsers(); await renderOrders();
+                });
+            });
+            document.querySelectorAll('.btn-delete').forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    if (!confirm('Supprimer cet utilisateur et toutes ses commandes définitivement ?')) return;
+                    btn.disabled = true; btn.textContent = '⏳';
+                    await Auth.deleteUser(btn.dataset.id);
+                    await renderUsers(); await renderOrders();
+                });
+            });
+        }
+
+        async function renderOrders() {
+            const [orders, users] = await Promise.all([Auth.getAllOrders(), Auth.getAllUsers()]);
+            const tbody   = document.querySelector('#ordersTable tbody');
+            const noOrders= document.getElementById('noOrders');
+            const tbl     = document.getElementById('ordersTable');
+            tbody.innerHTML = '';
+
+            if (orders.length === 0) {
+                noOrders.style.display = 'block'; tbl.style.display = 'none'; return;
+            }
+            noOrders.style.display = 'none'; tbl.style.display = 'table';
+
+            [...orders].reverse().forEach(o => {
+                const client = users.find(u => u.id === o.user_id);
+                const statusClass = (o.statut === 'Validé' || o.statut === 'Livré') ? 'status-active' : 'status-pending';
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="font-weight:600;">${client ? client.nom : '<span style="color:var(--text-muted)">Inconnu</span>'}</td>
+                    <td style="font-size:0.85rem;">${o.service || '—'}</td>
+                    <td style="font-family:var(--font-title); color:var(--primary);">${o.montant ? (o.montant.includes('FCFA') ? o.montant : o.montant + ' FCFA') : '—'}</td>
+                    <td><span class="status-badge ${statusClass}">${o.statut}</span></td>
+                    <td style="color:var(--text-muted); font-size:0.82rem;">${new Date(o.date_commande).toLocaleDateString('fr-FR')}</td>
+                    <td>
+                        <select class="order-status-select" data-id="${o.id}">
+                            <option value="En attente" ${o.statut==='En attente'?'selected':''}>En attente</option>
+                            <option value="Validé"     ${o.statut==='Validé'?'selected':''}>Validé</option>
+                            <option value="Livré"      ${o.statut==='Livré'?'selected':''}>Livré</option>
+                        </select>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            document.querySelectorAll('.order-status-select').forEach(sel => {
+                sel.addEventListener('change', async () => {
+                    const prev = sel.value;
+                    await Auth.updateOrderStatus(sel.dataset.id, sel.value);
+                    await renderOrders(); await renderUsers();
+                });
+            });
+        }
+
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            Auth.clear(); window.location.href = 'login.html';
+        });
+
+        // Initial load
+        Promise.all([renderUsers(), renderOrders()]);
+    </script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+# Secrets
+.env
+*.env
+
+# Base de données (contient les données utilisateurs)
+ms_service.db
+*.db
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.venv/
+*.egg-info/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
